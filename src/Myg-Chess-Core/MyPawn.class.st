@@ -19,19 +19,7 @@ MyPawn >> captureSquares [
 
 { #category : 'rendering' }
 MyPawn >> forwardSquares [
-    | oneSquare twoSquares |
-    oneSquare := self isWhite
-        ifTrue: [ square up ]
-        ifFalse: [ square down ].
-
-    twoSquares := oneSquare hasPiece
-        ifTrue: [ nil ]
-        ifFalse: [
-            self isWhite
-                ifTrue: [ oneSquare up ]
-                ifFalse: [ oneSquare down ] ].
-
-    ^ { oneSquare. twoSquares } select: [ :s |
+    ^ { self oneSquare. self twoSquares } select: [ :s |
         s notNil and: [ s hasPiece not ] ]
 ]
 
@@ -39,6 +27,13 @@ MyPawn >> forwardSquares [
 MyPawn >> id [
 
 	^ 'P'
+]
+
+{ #category : 'rendering' }
+MyPawn >> oneSquare [
+    ^ self isWhite
+        ifTrue: [ square up ]
+        ifFalse: [ square down ]
 ]
 
 { #category : 'rendering' }
@@ -50,4 +45,17 @@ MyPawn >> renderPieceOn: aSquare [
 { #category : 'rendering' }
 MyPawn >> targetSquaresLegal: aBoolean [
     ^ self forwardSquares , self captureSquares
+]
+
+{ #category : 'rendering' }
+MyPawn >> twoSquares [
+    | one |
+    one := self oneSquare.
+
+    ^ one hasPiece
+        ifTrue: [ nil ]
+        ifFalse: [
+            self isWhite
+                ifTrue: [ one up ]
+                ifFalse: [ one down ] ]
 ]
