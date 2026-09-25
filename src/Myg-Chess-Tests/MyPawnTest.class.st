@@ -6,6 +6,17 @@ Class {
 }
 
 { #category : 'tests' }
+MyPawnTest >> testPawnCanCaptureDiagonally [
+    | pawn board |
+    board := MyChessBoard empty.
+    board at: 'e4' put: (pawn := MyPawn white).
+    board at: 'd5' put: MyPawn black.
+
+    self assert: ((pawn targetSquaresLegal: true) anySatisfy: [ :square |
+        square = (board at: 'd5') ])
+]
+
+{ #category : 'tests' }
 MyPawnTest >> testPawnCanMoveTwoSquares [
     | pawn board |
     board := MyChessBoard empty.
