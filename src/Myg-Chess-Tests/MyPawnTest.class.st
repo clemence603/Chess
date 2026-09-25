@@ -35,3 +35,13 @@ MyPawnTest >> testPawnCannotMoveTwoSquaresIfBlocked [
     self deny: ((pawn targetSquaresLegal: true) anySatisfy: [ :square |
         square = (board at: 'e4') ])
 ]
+
+{ #category : 'tests' }
+MyPawnTest >> testPawnForwardSquares [
+    | pawn board |
+    board := MyChessBoard empty.
+    board at: 'e2' put: (pawn := MyPawn white).
+
+    self assert: pawn oneSquare = (board at: 'e3').
+    self assert: pawn twoSquares = (board at: 'e4')
+]
