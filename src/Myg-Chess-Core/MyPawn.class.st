@@ -52,10 +52,15 @@ MyPawn >> twoSquares [
     | one |
     one := self oneSquare.
 
-    ^ one hasPiece
-        ifTrue: [ nil ]
-        ifFalse: [
-            self isWhite
-                ifTrue: [ one up ]
-                ifFalse: [ one down ] ]
+    ^ (self isWhite
+        ifTrue: [ square file = $2 ]
+        ifFalse: [ square file = $7 ])
+        ifFalse: [ nil ]
+        ifTrue: [
+            one hasPiece
+                ifTrue: [ nil ]
+                ifFalse: [
+                    self isWhite
+                        ifTrue: [ one up ]
+                        ifFalse: [ one down ] ] ]
 ]
