@@ -30,3 +30,14 @@ MyKingTest >> testIsNotCheckBySameColorRook [
 
 	self deny: king isInCheck
 ]
+
+{ #category : 'tests' }
+MyKingTest >> testKingCanCastleKingside [
+    | king board |
+    board := MyChessBoard empty.
+    board at: 'e1' put: (king := MyKing white).
+    board at: 'h1' put: MyRook white.
+
+    self assert: ((king targetSquaresLegal: true) anySatisfy: [ :s |
+        s = (board at: 'g1') ])
+]

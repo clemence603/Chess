@@ -27,6 +27,18 @@ MyKing >> basicTargetSquares [
 	}
 ]
 
+{ #category : 'rendering' }
+MyKing >> castlingSquares [
+    | rook |
+    rook := square right right right.
+
+    ^ (rook notNil and: [
+        rook hasPiece and: [
+            rook contents class = MyRook ]])
+        ifTrue: [ { square right right } ]
+        ifFalse: [ #() ]
+]
+
 { #category : 'accessing' }
 MyKing >> id [
 	
@@ -77,18 +89,17 @@ MyKing >> renderPieceOn: aSquare [
 
 { #category : 'rendering' }
 MyKing >> targetSquaresLegal: aBoolean [
-	"The king cannot move to threatened squares"
 
-	| threatenedSquares |
-	threatenedSquares := self opponentPieces flatCollect: [ :e |
-		                     e attackingSquares ].
+    "The king cannot move to threatened squares"
 
-	^ self basicTargetSquares select: [ :s |
-		  s notNil and: [
-			  (threatenedSquares includes: s) not and: [
-				  s hasPiece not or: [ 
-					"The square has an opponent piece"
-					s contents color ~= color and: [ 
-						"Let's hope the piece is not defended"
-						threatenedSquares includes: s  ] ] ] ] ]
+    | threatenedSquares |
+    threatenedSquares := self opponentPieces flatCollect: [ :e |
+                         e attackingSquares ].
+
+    ^ (self basicTargetSquares , self castlingSquares) select: [ :s |
+          s notNil and: [
+              (threatenedSquares includes: s) not and: [
+                  s hasPiece not or: [
+                      s contents color ~= color and: [
+                          threatenedSquares includes: s ] ] ] ] ]
 ]
