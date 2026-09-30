@@ -168,7 +168,13 @@ MyPiece >> moveTo: aSquare [
 
 	square emptyContents.
 	square := aSquare.
-	aSquare contents: self
+	aSquare contents: self.
+	self promoteIfNeeded
+]
+
+{ #category : 'path commands' }
+MyPiece >> promoteIfNeeded [
+    ^ self
 ]
 
 { #category : 'rendering' }

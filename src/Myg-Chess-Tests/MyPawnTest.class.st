@@ -27,6 +27,17 @@ MyPawnTest >> testBlackPawnMovesDown [
 ]
 
 { #category : 'tests' }
+MyPawnTest >> testBlackPawnPromotesToQueen [
+    | pawn board |
+    board := MyChessBoard empty.
+    board at: 'e2' put: (pawn := MyPawn black).
+
+    pawn moveTo: (board at: 'e1').
+
+    self assert: ((board at: 'e1') contents isKindOf: MyQueen)
+]
+
+{ #category : 'tests' }
 MyPawnTest >> testPawnCanCaptureDiagonally [
     | pawn board |
     board := MyChessBoard empty.
@@ -118,4 +129,15 @@ MyPawnTest >> testPawnForwardSquares [
 
     self assert: pawn oneSquare = (board at: 'e3').
     self assert: pawn twoSquares = (board at: 'e4')
+]
+
+{ #category : 'tests' }
+MyPawnTest >> testWhitePawnPromotesToQueen [
+    | pawn board |
+    board := MyChessBoard empty.
+    board at: 'e7' put: (pawn := MyPawn white).
+
+    pawn moveTo: (board at: 'e8').
+
+    self assert: ((board at: 'e8') contents isKindOf: MyQueen)
 ]

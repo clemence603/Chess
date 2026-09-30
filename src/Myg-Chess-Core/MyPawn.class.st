@@ -37,6 +37,21 @@ MyPawn >> oneSquare [
 ]
 
 { #category : 'rendering' }
+MyPawn >> promoteIfNeeded [
+    | lastRank |
+    lastRank := self isWhite
+        ifTrue: [ $8 ]
+        ifFalse: [ $1 ].
+
+    square file = lastRank
+        ifTrue: [
+            square contents: (
+                self isWhite
+                    ifTrue: [ MyQueen white ]
+                    ifFalse: [ MyQueen black ]) ]
+]
+
+{ #category : 'rendering' }
 MyPawn >> renderPieceOn: aSquare [ 
 	
 	^ aSquare renderPawn: self
