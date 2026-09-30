@@ -101,6 +101,17 @@ MyPawnTest >> testPawnCannotMoveForwardIfBlocked [
 ]
 
 { #category : 'tests' }
+MyPawnTest >> testPawnCannotMoveForwardOntoPieceOnPromotionRank [
+    | pawn board |
+    board := MyChessBoard empty.
+    board at: 'e7' put: (pawn := MyPawn white).
+    board at: 'e8' put: MyRook black.
+
+    self deny: ((pawn targetSquaresLegal: true) anySatisfy: [ :s |
+        s = (board at: 'e8') ])
+]
+
+{ #category : 'tests' }
 MyPawnTest >> testPawnCannotMoveTwoSquaresAfterLeavingStartingRank [
     | pawn board |
     board := MyChessBoard empty.
@@ -129,6 +140,18 @@ MyPawnTest >> testPawnForwardSquares [
 
     self assert: pawn oneSquare = (board at: 'e3').
     self assert: pawn twoSquares = (board at: 'e4')
+]
+
+{ #category : 'tests' }
+MyPawnTest >> testWhitePawnPromotesAfterCapture [
+    | pawn board |
+    board := MyChessBoard empty.
+    board at: 'g7' put: (pawn := MyPawn white).
+    board at: 'h8' put: MyRook black.
+
+    pawn moveTo: (board at: 'h8').
+
+    self assert: ((board at: 'h8') contents isKindOf: MyQueen)
 ]
 
 { #category : 'tests' }
