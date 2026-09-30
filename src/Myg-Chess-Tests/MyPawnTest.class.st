@@ -6,6 +6,17 @@ Class {
 }
 
 { #category : 'tests' }
+MyPawnTest >> testBlackPawnCanCaptureDiagonally [
+    | pawn board |
+    board := MyChessBoard empty.
+    board at: 'e5' put: (pawn := MyPawn black).
+    board at: 'd4' put: MyPawn white.
+
+    self assert: ((pawn targetSquaresLegal: true) anySatisfy: [ :s |
+        s = (board at: 'd4') ])
+]
+
+{ #category : 'tests' }
 MyPawnTest >> testBlackPawnMovesDown [
     | pawn board |
     board := MyChessBoard empty.
@@ -44,6 +55,17 @@ MyPawnTest >> testPawnCannotCaptureForward [
 
     self deny: ((pawn targetSquaresLegal: true) anySatisfy: [ :s |
         s = (board at: 'e5') ])
+]
+
+{ #category : 'tests' }
+MyPawnTest >> testPawnCannotCaptureSameColor [
+    | pawn board |
+    board := MyChessBoard empty.
+    board at: 'e4' put: (pawn := MyPawn white).
+    board at: 'd5' put: MyPawn white.
+
+    self deny: ((pawn targetSquaresLegal: true) anySatisfy: [ :s |
+        s = (board at: 'd5') ])
 ]
 
 { #category : 'tests' }
