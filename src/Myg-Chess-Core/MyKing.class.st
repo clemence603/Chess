@@ -74,6 +74,20 @@ MyKing >> isKing [
 	^ true
 ]
 
+{ #category : 'rendering' }
+MyKing >> moveTo: aSquare [
+    | rook oldSquare |
+
+    oldSquare := square.
+    super moveTo: aSquare.
+
+    (aSquare = (oldSquare right right)) ifTrue: [
+        rook := oldSquare right right right contents.
+        rook square: aSquare left.
+        oldSquare right right right emptyContents.
+        aSquare left contents: rook ]
+]
+
 { #category : 'accessing' }
 MyKing >> opponentPieces [
 

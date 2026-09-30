@@ -41,3 +41,17 @@ MyKingTest >> testKingCanCastleKingside [
     self assert: ((king targetSquaresLegal: true) anySatisfy: [ :s |
         s = (board at: 'g1') ])
 ]
+
+{ #category : 'tests' }
+MyKingTest >> testKingsideCastlingMovesRook [
+    | king board |
+    board := MyChessBoard empty.
+    board at: 'e1' put: (king := MyKing white).
+    board at: 'h1' put: MyRook white.
+
+    king moveTo: (board at: 'g1').
+
+    self assert: ((board at: 'g1') contents = king).
+    self assert: ((board at: 'f1') contents class = MyRook).
+    self assert: (board at: 'h1') hasPiece not
+]
