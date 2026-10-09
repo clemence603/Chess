@@ -6,6 +6,19 @@ Class {
 }
 
 { #category : 'tests' }
+MyPieceTest >> testKnightCannotExposeItsKingToCheck [
+    | board knight |
+    board := MyChessBoard empty.
+
+    board at: 'e1' put: MyKing white.
+    board at: 'e2' put: (knight := MyKnight white).
+    board at: 'e8' put: MyRook black.
+
+    self deny: (knight legalTargetSquares
+        anySatisfy: [ :s | s = (board at: 'f4') ]).
+]
+
+{ #category : 'tests' }
 MyPieceTest >> testMyKingFindsKingOnBoard [
     | board rook king |
     board := MyChessBoard empty.
@@ -39,6 +52,19 @@ MyPieceTest >> testMyKingReturnsKingOfSameColor [
 ]
 
 { #category : 'tests' }
+MyPieceTest >> testPawnCannotExposeItsKingToCheck [
+    | board pawn |
+    board := MyChessBoard empty.
+
+    board at: 'e1' put: MyKing white.
+    board at: 'e2' put: (pawn := MyPawn white).
+    board at: 'e8' put: MyRook black.
+
+    self deny: (pawn legalTargetSquares
+        anySatisfy: [ :s | s = (board at: 'e3') ]).
+]
+
+{ #category : 'tests' }
 MyPieceTest >> testPieceCannotExposeItsKingToCheck [
     | board rook |
     board := MyChessBoard empty.
@@ -48,6 +74,19 @@ MyPieceTest >> testPieceCannotExposeItsKingToCheck [
     board at: 'e8' put: MyRook black.
 
     self deny: (rook legalTargetSquares
+        anySatisfy: [ :s | s = (board at: 'f2') ]).
+]
+
+{ #category : 'tests' }
+MyPieceTest >> testQueenCannotExposeItsKingToCheck [
+    | board queen |
+    board := MyChessBoard empty.
+
+    board at: 'e1' put: MyKing white.
+    board at: 'e2' put: (queen := MyQueen white).
+    board at: 'e8' put: MyRook black.
+
+    self deny: (queen legalTargetSquares
         anySatisfy: [ :s | s = (board at: 'f2') ]).
 ]
 
