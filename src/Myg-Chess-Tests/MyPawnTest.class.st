@@ -34,7 +34,7 @@ MyPawnTest >> testBlackPawnPromotesToQueen [
 
     pawn moveTo: (board at: 'e1').
 
-    self assert: ((board at: 'e1') contents isKindOf: MyQueen)
+    self assert: pawn square = (board at: 'e1').
 ]
 
 { #category : 'tests' }

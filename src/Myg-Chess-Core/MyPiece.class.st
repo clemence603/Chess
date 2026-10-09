@@ -27,8 +27,7 @@ MyPiece class >> white [
 
 { #category : 'as yet unclassified' }
 MyPiece >> attackingSquares [
-
-	^ self legalTargetSquares
+    ^ self targetSquaresLegal: false
 ]
 
 { #category : 'path commands' }
@@ -157,8 +156,25 @@ MyPiece >> leftFileLegal: aBoolean [
 
 { #category : 'path commands' }
 MyPiece >> legalTargetSquares [
+    | king |
+    king := self myKing.
+king ifNil: [ ^ self targetSquaresLegal: true ].
 
-	^ self targetSquaresLegal: true
+    ^ (self targetSquaresLegal: true) select: [ :target |
+        | originalSquare capturedPiece |
+        originalSquare := self square.
+        capturedPiece := target contents.
+
+        originalSquare emptyContents.
+        target contents: self.
+        square := target.
+
+        [ king isInCheck not ]
+            ensure: [
+                target contents: capturedPiece.
+                originalSquare contents: self.
+                square := originalSquare ]
+    ]
 ]
 
 { #category : 'path commands' }
@@ -170,6 +186,17 @@ MyPiece >> moveTo: aSquare [
 	square := aSquare.
 	aSquare contents: self.
 	self promoteIfNeeded
+]
+
+{ #category : 'rendering' }
+MyPiece >> myKing [
+  
+    ^ self board pieces
+        detect: [ :piece |
+            piece notNil and: [
+                piece class = MyKing and: [
+                    piece color = self color ] ] ]
+        ifNone: [ nil ]
 ]
 
 { #category : 'path commands' }

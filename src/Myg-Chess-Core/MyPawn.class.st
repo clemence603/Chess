@@ -43,7 +43,7 @@ MyPawn >> promoteIfNeeded [
         ifTrue: [ $8 ]
         ifFalse: [ $1 ].
 
-    square file = lastRank
+    square name last = lastRank
         ifTrue: [
             square contents: (
                 self isWhite
