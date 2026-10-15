@@ -200,85 +200,80 @@ MyChessSquare >> printOn: aStream [
 
 { #category : 'rendering' }
 MyChessSquare >> renderBishop: aPiece [
-
-	^ aPiece isWhite
-		  ifTrue: [
-			  color isBlack
-				  ifFalse: [ 'B' ]
-				  ifTrue: [ 'b' ] ]
-		  ifFalse: [
-			  color isBlack
-				  ifFalse: [ 'V' ]
-				  ifTrue: [ 'v' ] ]
+    ^ self
+        renderPiece: aPiece
+        whiteOnWhite: 'B'
+        whiteOnBlack: 'b'
+        blackOnWhite: 'V'
+        blackOnBlack: 'v'
 ]
 
 { #category : 'rendering' }
 MyChessSquare >> renderKing: aPiece [
-
-	^ aPiece isWhite
-		  ifFalse: [
-			  color isBlack
-				  ifFalse: [ 'L' ]
-				  ifTrue: [ 'l' ] ]
-		  ifTrue: [
-			  color isBlack
-				  ifFalse: [ 'K' ]
-				  ifTrue: [ 'k' ] ]
+    ^ self
+        renderPiece: aPiece
+        whiteOnWhite: 'K'
+        whiteOnBlack: 'k'
+        blackOnWhite: 'L'
+        blackOnBlack: 'l'
 ]
 
 { #category : 'rendering' }
 MyChessSquare >> renderKnight: aPiece [
-
-	^ aPiece isWhite
-		  ifFalse: [ color isBlack
-				  ifFalse: [ 'M' ]
-				  ifTrue: [ 'm' ] ]
-		  ifTrue: [
-			  color isBlack
-				  ifFalse: [ 'N' ]
-				  ifTrue: [ 'n' ] ]
+    ^ self
+        renderPiece: aPiece
+        whiteOnWhite: 'N'
+        whiteOnBlack: 'n'
+        blackOnWhite: 'M'
+        blackOnBlack: 'm'
 ]
 
 { #category : 'rendering' }
 MyChessSquare >> renderPawn: aPiece [
+    ^ self
+        renderPiece: aPiece
+        whiteOnWhite: 'P'
+        whiteOnBlack: 'p'
+        blackOnWhite: 'O'
+        blackOnBlack: 'o'
+]
 
-	^ aPiece isWhite
-		  ifFalse: [
-			  color isBlack
-				  ifFalse: [ 'O' ]
-				  ifTrue: [ 'o' ] ]
-		  ifTrue: [
-			  color isBlack
-				  ifFalse: [ 'P' ]
-				  ifTrue: [ 'p' ] ]
+{ #category : 'accessing' }
+MyChessSquare >> renderPiece: aPiece
+    whiteOnWhite: whiteOnWhite
+    whiteOnBlack: whiteOnBlack
+    blackOnWhite: blackOnWhite
+    blackOnBlack: blackOnBlack [
+
+    ^ aPiece isWhite
+        ifTrue: [
+            color isBlack
+                ifTrue: [ whiteOnBlack ]
+                ifFalse: [ whiteOnWhite ] ]
+        ifFalse: [
+            color isBlack
+                ifTrue: [ blackOnBlack ]
+                ifFalse: [ blackOnWhite ] ]
 ]
 
 { #category : 'rendering' }
 MyChessSquare >> renderQueen: aPiece [
-
-	^ aPiece isWhite
-		  ifFalse: [
-			  color isBlack
-				  ifFalse: [ 'W' ]
-				  ifTrue: [ 'w' ] ]
-		  ifTrue: [
-			  color isBlack
-				  ifFalse: [ 'Q' ]
-				  ifTrue: [ 'q' ] ]
+    ^ self
+        renderPiece: aPiece
+        whiteOnWhite: 'Q'
+        whiteOnBlack: 'q'
+        blackOnWhite: 'W'
+        blackOnBlack: 'w'
 ]
 
 { #category : 'rendering' }
 MyChessSquare >> renderRook: aPiece [
-
-	^ aPiece isWhite
-		  ifFalse: [
-			  color isBlack
-				  ifFalse: [ 'T' ]
-				  ifTrue: [ 't' ] ]
-		  ifTrue: [
-			  color isBlack
-				  ifFalse: [ 'R' ]
-				  ifTrue: [ 'r' ] ]
+    ^ self
+        renderPiece: aPiece
+        whiteOnWhite: 'R'
+        whiteOnBlack: 'r'
+        blackOnWhite: 'T'
+        blackOnBlack: 't'
 ]
 
 { #category : 'accessing' }
